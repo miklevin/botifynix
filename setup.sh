@@ -21,11 +21,12 @@ else
   echo "Repository already cloned."
 fi
 
-# Navigate to the cloned repository
-cd "$REPO_DIR" || { echo "Failed to enter directory $REPO_DIR"; exit 1; }
-
 # Download the default.nix file
-curl -O https://raw.githubusercontent.com/miklevin/botifynix/main/default.nix || { echo "Failed to download default.nix"; exit 1; }
+curl -o "$REPO_DIR/default.nix" https://raw.githubusercontent.com/miklevin/botifynix/main/default.nix || { echo "Failed to download default.nix"; exit 1; }
+
+# Navigate to the repository directory
+cd "$REPO_DIR" || { echo "Failed to enter directory $REPO_DIR"; exit 1; }
 
 # Run nix-shell
 nix-shell || { echo "Failed to run nix-shell"; exit 1; }
+
