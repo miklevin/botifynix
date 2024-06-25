@@ -12,7 +12,7 @@ mkdir $DIR
 cd $DIR
 
 # Download the default.nix file
-curl -O https://raw.githubusercontent.com/your_username/your_repo/main/default.nix
+curl -O https://raw.githubusercontent.com/miklevin/botifynix/main/default.nix
 
 # Run nix-shell
 nix-shell
