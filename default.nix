@@ -10,8 +10,8 @@ pkgs.mkShell {
   ];
 
   shellHook = ''
+    # Navigate to the repository directory
     repoDir="repos/AuditByBotify"
-
     cd ${repoDir}
 
     # Create and activate virtual environment
