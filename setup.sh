@@ -1,19 +1,20 @@
 #!/bin/bash
 
-# Check if a directory exists
-DIR="my_nix_env"
+# Directory for the Nix environment
+DIR="botifython"
+
+# Check if the directory already exists
 if [ -d "$DIR" ]; then
-  echo "$DIR already exists. Please remove it or choose a different directory."
+  echo "Directory $DIR already exists. Please remove it or choose a different directory."
   exit 1
 fi
 
 # Create the directory and navigate into it
 mkdir $DIR
-cd $DIR
+cd $DIR || { echo "Failed to enter directory $DIR"; exit 1; }
 
 # Download the default.nix file
-curl -O https://raw.githubusercontent.com/miklevin/botifynix/main/default.nix
+curl -O https://raw.githubusercontent.com/miklevin/botifynix/main/default.nix || { echo "Failed to download default.nix"; exit 1; }
 
 # Run nix-shell
-nix-shell
-
+nix-shell || { echo "Failed to run nix-shell"; exit 1; }
