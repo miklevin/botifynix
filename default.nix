@@ -12,9 +12,6 @@ pkgs.mkShell {
   shellHook = ''
     repoDir="repos/AuditByBotify"
 
-    # Ensure the SSH agent is available
-    export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
-
     cd ${repoDir}
 
     # Create and activate virtual environment
@@ -32,4 +29,3 @@ pkgs.mkShell {
     jupyter lab
   '';
 }
-
