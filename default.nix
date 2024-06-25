@@ -1,32 +1,28 @@
 { pkgs ? import <nixpkgs> {} }:
 
-let
-  repoDir = "repos/AuditByBotify";
-  gitClone = pkgs.runCommand "clone-repo" {
-    buildInputs = [ pkgs.git ];
-    } ''
-      if [ ! -d ${repoDir} ]; then
-        export SSH_AUTH_SOCK=${toString (pkgs.writeText "ssh-auth-sock" ''${builtins.getEnv "SSH_AUTH_SOCK"}'')}
-        git clone git@github.com:miklevin/AuditByBotify.git ${repoDir}
-      else
-        echo "Repository already cloned."
-      fi
-      mkdir -p $out
-      cp -r repos $out/
-    '';
-in
 pkgs.mkShell {
   buildInputs = [
     pkgs.python3
     pkgs.python3Packages.jupyterlab
     pkgs.python3Packages.nbdev
     pkgs.python3Packages.virtualenv
-    gitClone
+    pkgs.git
   ];
 
   shellHook = ''
-    export SSH_AUTH_SOCK=${toString (pkgs.writeText "ssh-auth-sock" ''${builtins.getEnv "SSH_AUTH_SOCK"}'')}
-    cd ${gitClone}/repos/AuditByBotify
+    repoDir="repos/AuditByBotify"
+    
+    # Ensure the SSH agent is available
+    export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
+
+    # Clone the repository if it doesn't exist
+    if [ ! -d ${repoDir} ]; then
+      git clone git@github.com:miklevin/AuditByBotify.git ${repoDir}
+    else
+      echo "Repository already cloned."
+    fi
+
+    cd ${repoDir}
 
     # Create and activate virtual environment
     if [ ! -d .venv ]; then
