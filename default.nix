@@ -19,6 +19,9 @@ pkgs.mkShell {
     pip install jupyterlab nbdev
 
     echo "JupyterLab environment is set up."
+
+    # Start JupyterLab
+    jupyter lab
   '';
 }
 
