@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Directory for the Nix environment
-DIR="botifython"
+DIR="repos"
 
 # Check if the directory already exists
 if [ -d "$DIR" ]; then
