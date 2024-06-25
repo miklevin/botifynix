@@ -2,6 +2,8 @@
 
 # Directory for the Nix environment
 DIR="repos"
+REPO_DIR="$DIR/AuditByBotify"
+REPO_URL="git@github.com:miklevin/AuditByBotify.git"
 
 # Check if the directory already exists
 if [ -d "$DIR" ]; then
@@ -10,8 +12,15 @@ if [ -d "$DIR" ]; then
 fi
 
 # Create the directory and navigate into it
-mkdir $DIR
-cd $DIR || { echo "Failed to enter directory $DIR"; exit 1; }
+mkdir -p "$DIR"
+cd "$DIR" || { echo "Failed to enter directory $DIR"; exit 1; }
+
+# Clone the repository if it doesn't exist
+if [ ! -d "$REPO_DIR" ]; then
+  git clone "$REPO_URL" "$REPO_DIR" || { echo "Failed to clone repository"; exit 1; }
+else
+  echo "Repository already cloned."
+fi
 
 # Download the default.nix file
 curl -O https://raw.githubusercontent.com/miklevin/botifynix/main/default.nix || { echo "Failed to download default.nix"; exit 1; }

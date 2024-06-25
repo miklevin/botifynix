@@ -11,16 +11,9 @@ pkgs.mkShell {
 
   shellHook = ''
     repoDir="repos/AuditByBotify"
-    
+
     # Ensure the SSH agent is available
     export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
-
-    # Clone the repository if it doesn't exist
-    if [ ! -d ${repoDir} ]; then
-      git clone git@github.com:miklevin/AuditByBotify.git ${repoDir}
-    else
-      echo "Repository already cloned."
-    fi
 
     cd ${repoDir}
 
@@ -39,3 +32,4 @@ pkgs.mkShell {
     jupyter lab
   '';
 }
+
