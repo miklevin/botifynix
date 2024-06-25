@@ -6,6 +6,7 @@ let
     buildInputs = [ pkgs.git ];
     } ''
       if [ ! -d ${repoDir} ]; then
+        export SSH_AUTH_SOCK=${toString (pkgs.writeText "ssh-auth-sock" ''${builtins.getEnv "SSH_AUTH_SOCK"}'')}
         git clone git@github.com:miklevin/AuditByBotify.git ${repoDir}
       else
         echo "Repository already cloned."
@@ -24,6 +25,7 @@ pkgs.mkShell {
   ];
 
   shellHook = ''
+    export SSH_AUTH_SOCK=${toString (pkgs.writeText "ssh-auth-sock" ''${builtins.getEnv "SSH_AUTH_SOCK"}'')}
     cd ${gitClone}/repos/AuditByBotify
 
     # Create and activate virtual environment
