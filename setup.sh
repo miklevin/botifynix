@@ -29,4 +29,3 @@ cd "$REPO_DIR" || { echo "Failed to enter directory $REPO_DIR"; exit 1; }
 
 # Run nix-shell
 nix-shell || { echo "Failed to run nix-shell"; exit 1; }
-
