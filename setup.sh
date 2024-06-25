@@ -18,3 +18,4 @@ curl -O https://raw.githubusercontent.com/miklevin/botifynix/main/default.nix ||
 
 # Run nix-shell
 nix-shell || { echo "Failed to run nix-shell"; exit 1; }
+
